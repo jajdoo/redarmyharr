@@ -1,7 +1,12 @@
 package client;
 
+import org.orm.PersistentException;
+import org.orm.PersistentSession;
+import org.orm.PersistentTransaction;
+
 import hibernate.Class1;
 import hibernate.Class2;
+import hibernate.ProtoPersistentManager;
 import ocsf.client.ObservableClient;
 
 public class ICMClient extends ObservableClient
@@ -30,6 +35,19 @@ public class ICMClient extends ObservableClient
 		System.out.println("-----------");
 		System.out.println(c1.getId1());
 		System.out.println(c1.getText());
+		
+		c1.setText(" OMG OMG OMGOMG ");
+		
+		try 
+		{
+			PersistentSession s = ProtoPersistentManager.instance().getSession();
+			PersistentTransaction t = s.beginTransaction();
+			
+			s.save(c1);
+			t.commit();
+			s.close();
+		} 
+		catch (PersistentException e) {e.printStackTrace();}
 		
 		super.handleMessageFromServer(msg);
 	}
