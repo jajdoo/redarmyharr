@@ -2,9 +2,15 @@ package server;
 
 import java.io.IOException;
 
+import org.apache.commons.collections.functors.PrototypeFactory;
+import org.hibernate.Hibernate;
 import org.orm.PersistentException;
+import org.orm.PersistentSession;
+import org.orm.PersistentTransaction;
 
+import hibernate.Class1;
 import hibernate.Class2;
+import hibernate.ProtoPersistentManager;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -29,14 +35,39 @@ public class ICMServer extends AbstractServer
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) 
 	{
-		System.out.println("server got message!");
-		try 
+		System.out.println("---------------------------");
+		if( msg instanceof String )
 		{
-			Class2 c = Class2.getClass2ByORMID(1);
-			client.sendToClient(c);
-		} 
-		catch (PersistentException e) {e.printStackTrace();} 
-		catch (IOException e) {e.printStackTrace();}
+			System.out.println("client sent: "+msg);
+			
+			try 
+			{
+				PersistentSession s = ProtoPersistentManager.instance().getSession();
+				
+				Class1 c1 = Class1.getClass1ByORMID(s,1);
+				c1.children.toArray(); //force lazy load
+				client.sendToClient(c1);
+				s.close();
+			} 
+			catch (PersistentException e) {e.printStackTrace();} 
+			catch (IOException e) {e.printStackTrace();}
+		}
+		else if( msg instanceof Class1 )
+		{
+			System.out.println("merging back");
+			try 
+			{
+				PersistentSession s = ProtoPersistentManager.instance().getSession();
+				
+				PersistentTransaction t =null; //s.beginTransaction();
+				t = s.beginTransaction();
+				s.update(msg);
+				t.commit();
+				s.close();
+				
+			} 
+			catch (PersistentException e) {e.printStackTrace();}
+		}
 	}
 
 	/**

@@ -13,7 +13,7 @@ public class ClientApp
 		try 
 		{
 			client.openConnection();
-			client.sendToServer(null);
+			client.sendToServer("greetings!");
 		} 
 		catch (IOException e) {e.printStackTrace();}
 	}
