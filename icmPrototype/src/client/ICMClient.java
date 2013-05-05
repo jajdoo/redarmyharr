@@ -20,14 +20,18 @@ public class ICMClient extends ObservableClient
 		
 		if( msg instanceof Class1 )
 		{
-			Class2 c2 = new Class2();
 			Class1 c1 = (Class1)msg;
-			c2.setParent(c1);
-			c2.setSomeNum(111111);
-			c1.setText("ITS A NEW ONE!!!");
+			
+			System.out.println("server sent Class1 object: ");
+			System.out.println(c1.getId1());
+			System.out.println(c1.getText());
+			
+			c1 = Class1.createClass1();
+			c1.setText("THIS IS CLIENT OBJECT!");
 			
 			try 
 			{
+				System.out.println("client sending Class1 instance to server..");
 				sendToServer(c1);
 			}
 			catch (IOException e) {e.printStackTrace();}

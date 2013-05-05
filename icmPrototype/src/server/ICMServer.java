@@ -43,25 +43,28 @@ public class ICMServer extends AbstractServer
 			try 
 			{
 				PersistentSession s = ProtoPersistentManager.instance().getSession();
-				
 				Class1 c1 = Class1.getClass1ByORMID(s,1);
-				c1.children.toArray(); //force lazy load
-				client.sendToClient(c1);
 				s.close();
+				client.sendToClient(c1);
+				System.out.println("sent a Class1 object to client!");
 			} 
 			catch (PersistentException e) {e.printStackTrace();} 
 			catch (IOException e) {e.printStackTrace();}
 		}
 		else if( msg instanceof Class1 )
 		{
-			System.out.println("merging back");
+			Class1 c1 = (Class1)msg;
+			
+			System.out.println("client sent a Class1 object:");
+			System.out.println(c1.getId1());
+			System.out.println(c1.getText());
+			
 			try 
 			{
 				PersistentSession s = ProtoPersistentManager.instance().getSession();
 				
-				PersistentTransaction t =null; //s.beginTransaction();
-				t = s.beginTransaction();
-				s.update(msg);
+				PersistentTransaction t = s.beginTransaction();
+				s.save(msg);
 				t.commit();
 				s.close();
 				
