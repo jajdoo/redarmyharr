@@ -34,10 +34,6 @@ public class Class1DetachedCriteria extends AbstractORMDetachedCriteria {
 		text = new StringExpression("text", this.getDetachedCriteria());
 	}
 	
-	public Class2DetachedCriteria createChildrenCriteria() {
-		return new Class2DetachedCriteria(createCriteria("ORM_Children"));
-	}
-	
 	public Class1 uniqueClass1(PersistentSession session) {
 		return (Class1) super.createExecutableCriteria(session).uniqueResult();
 	}

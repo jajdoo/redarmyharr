@@ -9,7 +9,6 @@ import org.orm.PersistentSession;
 import org.orm.PersistentTransaction;
 
 import hibernate.Class1;
-import hibernate.Class2;
 import hibernate.ProtoPersistentManager;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;

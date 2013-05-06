@@ -358,59 +358,9 @@ public class Class1 implements Serializable {
 		}
 	}
 	
-	public boolean deleteAndDissociate()throws PersistentException {
-		try {
-			hibernate.Class2[] lChildrens = children.toArray();
-			for(int i = 0; i < lChildrens.length; i++) {
-				lChildrens[i].setParent(null);
-			}
-			return delete();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			throw new PersistentException(e);
-		}
-	}
-	
-	public boolean deleteAndDissociate(org.orm.PersistentSession session)throws PersistentException {
-		try {
-			hibernate.Class2[] lChildrens = children.toArray();
-			for(int i = 0; i < lChildrens.length; i++) {
-				lChildrens[i].setParent(null);
-			}
-			try {
-				session.delete(this);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			throw new PersistentException(e);
-		}
-	}
-	
-	private java.util.Set this_getSet (int key) {
-		if (key == hibernate.ORMConstants.KEY_CLASS1_CHILDREN) {
-			return ORM_children;
-		}
-		
-		return null;
-	}
-	
-	org.orm.util.ORMAdapter _ormAdapter = new org.orm.util.AbstractORMAdapter() {
-		public java.util.Set getSet(int key) {
-			return this_getSet(key);
-		}
-		
-	};
-	
 	private int id1;
 	
 	private String text;
-	
-	private java.util.Set ORM_children = new java.util.HashSet();
 	
 	private void setId1(int value) {
 		this.id1 = value;
@@ -431,16 +381,6 @@ public class Class1 implements Serializable {
 	public String getText() {
 		return text;
 	}
-	
-	private void setORM_Children(java.util.Set value) {
-		this.ORM_children = value;
-	}
-	
-	private java.util.Set getORM_Children() {
-		return ORM_children;
-	}
-	
-	public final hibernate.Class2SetCollection children = new hibernate.Class2SetCollection(this, _ormAdapter, hibernate.ORMConstants.KEY_CLASS1_CHILDREN, hibernate.ORMConstants.KEY_CLASS2_PARENT, hibernate.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId1());

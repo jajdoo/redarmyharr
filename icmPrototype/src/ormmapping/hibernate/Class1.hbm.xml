@@ -11,9 +11,5 @@ License Type: Academic
 			</generator>
 		</id>
 		<property name="text" column="Text" type="string" length="255" not-null="false" lazy="false"/>
-		<set name="ORM_Children" lazy="true" cascade="save-update,lock" inverse="true">
-			<key column="Class1Id1" not-null="true"/>
-			<one-to-many class="hibernate.Class2"/>
-		</set>
 	</class>
 </hibernate-mapping>

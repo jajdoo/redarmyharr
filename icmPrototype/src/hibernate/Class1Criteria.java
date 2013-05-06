@@ -36,10 +36,6 @@ public class Class1Criteria extends AbstractORMCriteria {
 		this(hibernate.ProtoPersistentManager.instance().getSession());
 	}
 	
-	public Class2Criteria createChildrenCriteria() {
-		return new Class2Criteria(createCriteria("ORM_Children"));
-	}
-	
 	public Class1 uniqueClass1() {
 		return (Class1) super.uniqueResult();
 	}

@@ -18,7 +18,7 @@
   </Setting>
   <Setting type="2">
     <Driver>MySQL5 (Connector/J Driver)</Driver>
-    <DriverFiles>D:\projects\javaother\icmPrototype\mysql-connector-java-3.1.11-bin.jar</DriverFiles>
+    <DriverFiles>D:\projects\redarmyharr\icmPrototype\mysql-connector-java-3.1.11-bin.jar</DriverFiles>
     <Dialect>org.hibernate.dialect.MySQL5InnoDBDialect</Dialect>
     <DriverClass>com.mysql.jdbc.Driver</DriverClass>
     <URL>jdbc:mysql://localhost/icmdbproto</URL>

@@ -3,7 +3,6 @@ package client;
 import java.io.IOException;
 
 import hibernate.Class1;
-import hibernate.Class2;
 import ocsf.client.ObservableClient;
 
 public class ICMClient extends ObservableClient
