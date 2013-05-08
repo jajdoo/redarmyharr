@@ -1,5 +1,10 @@
 package apps;
+import gui.ClientComponent;
+
 import java.io.IOException;
+
+import javax.swing.JFrame;
+
 import client.ICMClient;
 
 
@@ -8,14 +13,11 @@ public class ClientApp
 	public static void main(String[] args) 
 	{
 		
-		ICMClient client = new ICMClient(args[0], Integer.parseInt(args[1]));
-		
-		try 
-		{
-			client.openConnection();
-			client.sendToServer("greetings!");
-		} 
-		catch (IOException e) {e.printStackTrace();}
+		JFrame frame = new JFrame();
+		frame.setSize(400,400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setContentPane(new ClientComponent());
+		frame.setVisible(true);
 	}
 
 }

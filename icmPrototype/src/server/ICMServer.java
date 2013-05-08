@@ -12,8 +12,9 @@ import hibernate.Class1;
 import hibernate.ProtoPersistentManager;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
+import ocsf.server.ObservableServer;
 
-public class ICMServer extends AbstractServer
+public class ICMServer extends ObservableServer
 {
 	// Constructors
 	//-------------------------------------------------------------------------
@@ -45,7 +46,8 @@ public class ICMServer extends AbstractServer
 				Class1 c1 = Class1.getClass1ByORMID(s,1);
 				s.close();
 				client.sendToClient(c1);
-				System.out.println("sent a Class1 object to client!");
+				setChanged();
+				notifyObservers("sent a Class1 object to client!");
 			} 
 			catch (PersistentException e) {e.printStackTrace();} 
 			catch (IOException e) {e.printStackTrace();}
@@ -54,9 +56,9 @@ public class ICMServer extends AbstractServer
 		{
 			Class1 c1 = (Class1)msg;
 			
-			System.out.println("client sent a Class1 object:");
-			System.out.println(c1.getId1());
-			System.out.println(c1.getText());
+			
+			setChanged();
+			notifyObservers("client sent a Class1 object: \n"+c1.getId1()+"\n"+c1.getText());
 			
 			try 
 			{
@@ -78,7 +80,8 @@ public class ICMServer extends AbstractServer
 	 */
 	protected void serverStarted()
 	{
-		System.out.println("Server listening for connections on port " + getPort());
+		setChanged();
+		notifyObservers("Server listening for connections on port " + getPort());
 	}
 	
 	/**
@@ -87,6 +90,7 @@ public class ICMServer extends AbstractServer
 	 */
 	protected void serverStopped()
 	{
-		System.out.println("Server has stopped listening for connections.");
+		setChanged();
+		notifyObservers("Server has stopped listening for connections.");
 	}
 }

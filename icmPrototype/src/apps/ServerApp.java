@@ -1,8 +1,8 @@
 package apps;
 
-import java.io.IOException;
+import gui.ServerComponent;
 
-import server.ICMServer;
+import javax.swing.JFrame;
 
 
 /**
@@ -14,12 +14,11 @@ public class ServerApp
 {
 	public static void main(String[] args) 
 	{
-		ICMServer server = new ICMServer(Integer.parseInt(args[0]));
-		try 
-		{
-			server.listen();
-		}
-		catch (IOException e) {e.printStackTrace();}
+		JFrame frame = new JFrame();
+		frame.setSize(400,400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setContentPane(new ServerComponent());
+		frame.setVisible(true);
 	}
 
 }
