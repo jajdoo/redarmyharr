@@ -72,6 +72,7 @@ public class ClientComponent extends JComponent implements ActionListener, Obser
 		if(arg0.equals(client) && arg1 instanceof String )
 		{
 			outputText.append((String)arg1);
+			outputText.append("\n");
 		}
 	}
 	

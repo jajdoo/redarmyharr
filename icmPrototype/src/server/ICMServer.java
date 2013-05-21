@@ -13,6 +13,8 @@ import hibernate.ProtoPersistentManager;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 import ocsf.server.ObservableServer;
+import test.Child;
+import test.Parent;
 
 public class ICMServer extends ObservableServer
 {
@@ -35,42 +37,17 @@ public class ICMServer extends ObservableServer
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) 
 	{
-		System.out.println("---------------------------");
-		if( msg instanceof String )
+		Parent parent = new Parent();
+		for( int i=0 ; i<10 ; i++ )
 		{
-			System.out.println("client sent: "+msg);
-			
-			try 
-			{
-				PersistentSession s = ProtoPersistentManager.instance().getSession();
-				Class1 c1 = Class1.getClass1ByORMID(s,1);
-				s.close();
-				client.sendToClient(c1);
-				setChanged();
-				notifyObservers("sent a Class1 object to client!");
-			} 
-			catch (PersistentException e) {e.printStackTrace();} 
-			catch (IOException e) {e.printStackTrace();}
+			Child child = new Child(i, parent);
 		}
-		else if( msg instanceof Class1 )
-		{
-			Class1 c1 = (Class1)msg;
-			
-			
-			setChanged();
-			notifyObservers("client sent a Class1 object: \n"+c1.getId1()+"\n"+c1.getText());
-			
-			try 
-			{
-				PersistentSession s = ProtoPersistentManager.instance().getSession();
-				
-				PersistentTransaction t = s.beginTransaction();
-				s.save(msg);
-				t.commit();
-				s.close();
-				
-			} 
-			catch (PersistentException e) {e.printStackTrace();}
+		
+		try {
+			client.sendToClient(parent);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

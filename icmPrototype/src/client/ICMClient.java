@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import hibernate.Class1;
 import ocsf.client.ObservableClient;
+import test.Child;
+import test.Parent;
 
 public class ICMClient extends ObservableClient
 {
@@ -15,22 +17,12 @@ public class ICMClient extends ObservableClient
 	@Override
 	protected void handleMessageFromServer(Object msg) 
 	{
-		if( msg instanceof Class1 )
+		Parent parent = (Parent) msg;
+		
+		for( Child child : parent.children )
 		{
-			Class1 c1 = (Class1)msg;
-			
+			notifyObservers("child: "+child.id);
 			setChanged();
-			notifyObservers("server sent Class1 object: \n"+c1.getId1()+"\n"+c1.getText());
-			
-			c1 = Class1.createClass1();
-			c1.setText("THIS IS CLIENT OBJECT!");
-			
-			try 
-			{
-				System.out.println("client sending Class1 instance to server..");
-				sendToServer(c1);
-			}
-			catch (IOException e) {e.printStackTrace();}
 		}
 	}
 }
