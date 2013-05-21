@@ -10,13 +10,16 @@ import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
 
 import client.ICMClient;
 
 public class ClientComponent extends JComponent implements ActionListener, Observer
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1435900317439423308L;
 	private JTextField ipField;
 	private JTextField portField;
 	private JTextArea outputText;

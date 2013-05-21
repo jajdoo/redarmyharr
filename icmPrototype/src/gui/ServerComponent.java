@@ -16,6 +16,10 @@ import server.ICMServer;
 
 public class ServerComponent extends JComponent implements Observer, ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9105258130240430499L;
 	private JTextField portField;
 	private JTextArea outputArea;
 	private ICMServer server;

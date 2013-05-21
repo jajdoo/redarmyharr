@@ -1,11 +1,6 @@
 package apps;
 import gui.ClientComponent;
-
-import java.io.IOException;
-
 import javax.swing.JFrame;
-
-import client.ICMClient;
 
 
 public class ClientApp 
