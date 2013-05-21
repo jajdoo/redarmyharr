@@ -1,8 +1,5 @@
 package client;
 
-import java.io.IOException;
-
-import hibernate.Class1;
 import ocsf.client.ObservableClient;
 import test.Child;
 import test.Parent;

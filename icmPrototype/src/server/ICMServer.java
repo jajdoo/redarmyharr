@@ -2,15 +2,6 @@ package server;
 
 import java.io.IOException;
 
-import org.apache.commons.collections.functors.PrototypeFactory;
-import org.hibernate.Hibernate;
-import org.orm.PersistentException;
-import org.orm.PersistentSession;
-import org.orm.PersistentTransaction;
-
-import hibernate.Class1;
-import hibernate.ProtoPersistentManager;
-import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 import ocsf.server.ObservableServer;
 import test.Child;
@@ -40,6 +31,7 @@ public class ICMServer extends ObservableServer
 		Parent parent = new Parent();
 		for( int i=0 ; i<10 ; i++ )
 		{
+			@SuppressWarnings("unused")
 			Child child = new Child(i, parent);
 		}
 		
